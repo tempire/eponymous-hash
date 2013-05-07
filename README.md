@@ -1,4 +1,0 @@
-eponymous-hash
-==============
-
-Eponymous::Hash
