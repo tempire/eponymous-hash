@@ -1,6 +1,8 @@
 package Eponymous::Hash;
 use PadWalker 'var_name';
 
+our $VERSION = '0.01';
+
 sub import {
   shift;
   my $name = pop || 'eponymous_hash';
@@ -30,6 +32,7 @@ Translates named variables to a hash list with corresponding keys
   my $mammal = 'ponycorn';
   my $diet   = 'sprinkles';
 
+
   my %hash = eponymous_hash($mammal, $diet)
   # (mammal => 'ponycorn', diet => 'sprinkles')
 
@@ -42,6 +45,10 @@ Translates named variables to a hash list with corresponding keys
 
 Default method name.  If parameter is passed to use statement, parameter will be used instead.
 
+=head1 VERSION
+
+0.01
+
 =head1 AUTHOR
 
-Glen Hinkle
+Glen Hinkle C<tempire@cpan.org>
