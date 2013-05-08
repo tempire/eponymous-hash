@@ -32,10 +32,10 @@ Translates named variables to a hash list with corresponding keys
   my $mammal = 'ponycorn';
   my $diet   = 'sprinkles';
 
-OR
-
   my %hash = eponymous_hash($mammal, $diet)
   # (mammal => 'ponycorn', diet => 'sprinkles')
+
+OR
 
   use Eponymous::Hash 'epy'
   my %hash = epy($mammal, $diet);
