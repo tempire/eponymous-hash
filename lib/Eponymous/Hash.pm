@@ -67,10 +67,8 @@ With blessed object
   my %hash = epy($thing, 'mammal', 'diet');
   # (mammal => 'ponycorn', diet => 'sprinkles')
 
-Custom method name
-
-  The name 'epy' is arbitrary. You may define any name in the use statement:
-  use Eponymous::Hash 'eponymous_hash';
+The name 'epy' is arbitrary. You may define any name in the use statement:
+use Eponymous::Hash 'eponymous_hash';
 
 =head1 METHODS
 
