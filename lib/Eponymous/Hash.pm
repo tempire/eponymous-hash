@@ -38,7 +38,8 @@ Translates named variables to a hash list with corresponding keys
 
   use Eponymous::Hash 'epy';
 
-  # With scalars:
+With scalars
+
   my $mammal = 'ponycorn';
   my $diet   = 'sprinkles';
 
@@ -46,7 +47,8 @@ Translates named variables to a hash list with corresponding keys
   # (mammal => 'ponycorn', diet => 'sprinkles')
 
 
-  # With hash reference
+With hash reference
+
   my $thing = {
     mammal => 'ponycorns',
     diet => 'sprinkls'
@@ -56,13 +58,16 @@ Translates named variables to a hash list with corresponding keys
   # (mammal => 'ponycorn', diet => 'sprinkles')
 
 
-  # With blessed object
+With blessed object
+
   my $thing = Thing->new;
   $thing->mammal; # ponycorns
   $thing->diet;   # sprinkles
 
   my %hash = epy($thing, 'mammal', 'diet');
   # (mammal => 'ponycorn', diet => 'sprinkles')
+
+Custom method name
 
   The name 'epy' is arbitrary. You may define any name in the use statement:
   use Eponymous::Hash 'eponymous_hash';
