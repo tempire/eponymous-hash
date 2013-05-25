@@ -1,7 +1,8 @@
 package Eponymous::Hash;
 use PadWalker 'var_name';
+use Scalar::Util 'blessed';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub import {
   shift;
@@ -12,7 +13,15 @@ sub import {
 }
 
 sub eponymous_hash {
-  return map { substr(var_name(1, \$_), 1) => $_ } @_;
+  if (ref $_[0] eq 'HASH') {
+    return map {$_ => $_[0]->{$_}} @_[1..$#_];
+  }
+  elsif (blessed $_[0]) {
+    return map {$_ => $_[0]->$_} @_[1..$#_];
+  }
+  else {
+    return map { substr(var_name(1, \$_), 1) => $_ } @_;
+  }
 }
 
 1;
@@ -27,18 +36,36 @@ Translates named variables to a hash list with corresponding keys
 
 =head1 USAGE
 
-  use Eponymous::Hash;
+  use Eponymous::Hash 'epy';
 
+  # With scalars:
   my $mammal = 'ponycorn';
   my $diet   = 'sprinkles';
 
-  my %hash = eponymous_hash($mammal, $diet)
+  my %hash = epy($mammal, $diet)
   # (mammal => 'ponycorn', diet => 'sprinkles')
 
-OR
 
-  use Eponymous::Hash 'epy'
-  my %hash = epy($mammal, $diet);
+  # With hash reference
+  my $thing = {
+    mammal => 'ponycorns',
+    diet => 'sprinkls'
+  };
+
+  my %hash = epy($thing, 'mammal', 'diet');
+  # (mammal => 'ponycorn', diet => 'sprinkles')
+
+
+  # With blessed object
+  my $thing = Thing->new;
+  $thing->mammal; # ponycorns
+  $thing->diet;   # sprinkles
+
+  my %hash = epy($thing, 'mammal', 'diet');
+  # (mammal => 'ponycorn', diet => 'sprinkles')
+
+  The name 'epy' is arbitrary. You may define any name in the use statement:
+  use Eponymous::Hash 'eponymous_hash';
 
 =head1 METHODS
 
@@ -48,7 +75,7 @@ Default method name.  If parameter is passed to use statement, parameter will be
 
 =head1 VERSION
 
-0.01
+0.02
 
 =head1 AUTHOR
 
